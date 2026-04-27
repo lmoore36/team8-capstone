@@ -1,5 +1,8 @@
-/data-collection/scripts/__pycache__/
+/data_collection/scripts/__pycache__/
 /venv/
 /data-collection/sentences_raw.csv
 .DS_Store
-/data-collection/data/
+/data_collection/data/sentences_raw.csv
+benchmark_results/scripts/.env
+benchmark_results/scripts/__pycache__/
+benchmark_results/benchmark_labels.log
