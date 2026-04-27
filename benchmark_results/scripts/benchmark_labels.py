@@ -115,7 +115,7 @@ def parse_args():
     parser.add_argument(
         "--input",
         default=None,
-        help="Path to holdout_1000.csv. Defaults to common project holdout locations.",
+        help="Path to holdout CSV. Defaults to the balanced holdout if present.",
     )
     parser.add_argument(
         "--output-dir",
@@ -137,6 +137,8 @@ def resolve_input_path(input_path):
         return os.path.join(PROJECT_ROOT, input_path)
 
     candidates = [
+        os.path.join("data_collection", "data", "holdout_1000_balanced.csv"),
+        "holdout_1000_balanced.csv",
         "holdout_1000.csv",
         os.path.join("data_collection", "data", "holdout_1000.csv"),
         os.path.join("data-collection", "data", "holdout_1000.csv"),

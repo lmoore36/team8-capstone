@@ -2,7 +2,7 @@
 /venv/
 /data-collection/sentences_raw.csv
 .DS_Store
-/data_collection/data/
+/data_collection/data/sentences_raw.csv
 benchmark_results/scripts/.env
 benchmark_results/scripts/__pycache__/
 benchmark_results/benchmark_labels.log
