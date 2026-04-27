@@ -1,0 +1,5 @@
+/data-collection/scripts/__pycache__/
+/venv/
+/data-collection/sentences_raw.csv
+.DS_Store
+/data-collection/data/
