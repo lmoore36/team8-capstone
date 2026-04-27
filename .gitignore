@@ -3,3 +3,6 @@
 /data-collection/sentences_raw.csv
 .DS_Store
 /data_collection/data/
+benchmark_results/scripts/.env
+benchmark_results/scripts/__pycache__/
+benchmark_results/benchmark_labels.log
