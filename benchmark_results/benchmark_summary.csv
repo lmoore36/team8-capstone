@@ -1,1 +1,7 @@
 model,total_sentences,total_time_seconds,avg_latency_seconds,estimated_cost_usd,exploration_count,exploitation_count,ambidextrous_count,neither_count
+gpt-4o-mini,1000,0.0,0.7327,0.05,148,152,99,601
+gpt-4o,1000,0.0,1.312,2.5,160,84,76,680
+gemini-2.5-flash,1000,0.0,1.9052,0.001085,179,252,63,506
+gemini-2.5-flash-lite,1000,0.0,6.478,0.000547,156,247,87,510
+claude-haiku-4-5-20251001,1000,0.0,0.7119,0.15,157,163,70,610
+claude-sonnet-4-6,1000,837.9871,1.3663,1.5,115,232,40,613
