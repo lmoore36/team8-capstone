@@ -1,0 +1,10 @@
+Selected GenAI labeling strategy
+================================
+Selected model: claude-haiku-4-5-20251001
+Selection metric: macro_f1
+macro_f1: 0.6841062512297196
+Krippendorff alpha: 0.610008291469541
+Cohen kappa: 0.6107713896485676
+MCC: 0.6138975887113465
+Macro F1: 0.6841062512297196
+Estimated cost USD on holdout: 0.15
