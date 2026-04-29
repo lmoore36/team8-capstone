@@ -26,3 +26,5 @@
 ## Step 8: Select GenAI Strategy
 /step8_select_genai_strategy/data/
 /step8_select_genai_strategy/notebook/data/
+/step8_select_genai_strategy/scripts/__pycache__/
+/step8_select_genai_strategy/.cache/
