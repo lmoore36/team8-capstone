@@ -19,5 +19,10 @@
 ## Step 7: GenAI Benchmark
 /step7_genai_benchmark/scripts/__pycache__/
 /step7_genai_benchmark/data/
+/step7_genai_benchmark/notebook/data/
 /step7_genai_benchmark/scripts/.env
 /step7_genai_benchmark/benchmark_labels.log
+
+## Step 8: Select GenAI Strategy
+/step8_select_genai_strategy/data/
+/step8_select_genai_strategy/notebook/data/
