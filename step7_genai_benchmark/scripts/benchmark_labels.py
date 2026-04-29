@@ -115,11 +115,11 @@ def parse_args():
     parser.add_argument(
         "--input",
         default=None,
-        help="Path to holdout CSV. Defaults to the balanced holdout if present.",
+        help="Path to holdout CSV. Defaults to the Step 6 human-consensus holdout if present.",
     )
     parser.add_argument(
         "--output-dir",
-        default="benchmark_results",
+        default="step7_genai_benchmark",
         help="Folder for benchmark output. Per-model labels go in its data subfolder.",
     )
     parser.add_argument(
@@ -137,13 +137,11 @@ def resolve_input_path(input_path):
         return os.path.join(PROJECT_ROOT, input_path)
 
     candidates = [
-        os.path.join("data_collection", "data", "holdout_1000_balanced.csv"),
+        os.path.join("step6_human_labeling", "data", "holdout_with_consensus.csv"),
+        os.path.join("step5_preprocess_split", "data", "holdout_1000_balanced.csv"),
+        os.path.join("step5_preprocess_split", "data", "holdout_1000.csv"),
         "holdout_1000_balanced.csv",
         "holdout_1000.csv",
-        os.path.join("data_collection", "data", "holdout_1000.csv"),
-        os.path.join("data-collection", "data", "holdout_1000.csv"),
-        os.path.join("sec-data-collection", "data", "holdout_1000.csv"),
-        os.path.join("sec_data_collection", "data", "holdout_1000.csv"),
     ]
     for candidate in candidates:
         cwd_candidate = os.path.abspath(candidate)

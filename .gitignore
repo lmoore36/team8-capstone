@@ -1,8 +1,20 @@
-/data_collection/scripts/__pycache__/
 /venv/
-/data-collection/sentences_raw.csv
 .DS_Store
-/data_collection/data/sentences_raw.csv
-benchmark_results/scripts/.env
-benchmark_results/scripts/__pycache__/
-benchmark_results/benchmark_labels.log
+
+## Step 4: Dataset Collection
+/step4_dataset_collection/scripts/__pycache__/
+/step4_dataset_collection/data/
+
+## Step 5: Preprocess Split
+/step5_preprocess_split/scripts/__pycache__/
+/step5_preprocess_split/data/
+
+## Step 6: Human Labeling
+/step6_human_labeling/scripts/__pycache__/
+/step6_human_labeling/data/
+
+## Step 7: GenAI Benchmark
+/step7_genai_benchmark/scripts/__pycache__/
+/step7_genai_benchmark/data/
+/step7_genai_benchmark/scripts/.env
+/step7_genai_benchmark/benchmark_labels.log
