@@ -14,6 +14,7 @@
 ## Step 6: Human Labeling
 /step6_human_labeling/scripts/__pycache__/
 /step6_human_labeling/data/
+/step6_human_labeling/notebook/data/
 
 ## Step 7: GenAI Benchmark
 /step7_genai_benchmark/scripts/__pycache__/
