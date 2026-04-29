@@ -9,6 +9,7 @@
 ## Step 5: Preprocess Split
 /step5_preprocess_split/scripts/__pycache__/
 /step5_preprocess_split/data/
+/step5_preprocess_split/notebook/data/
 
 ## Step 6: Human Labeling
 /step6_human_labeling/scripts/__pycache__/
