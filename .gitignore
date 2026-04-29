@@ -4,6 +4,7 @@
 ## Step 4: Dataset Collection
 /step4_dataset_collection/scripts/__pycache__/
 /step4_dataset_collection/data/
+/step4_dataset_collection/notebook/data/
 
 ## Step 5: Preprocess Split
 /step5_preprocess_split/scripts/__pycache__/
