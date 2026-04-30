@@ -116,7 +116,7 @@ DEFAULT_STEP8_DIR = PROJECT_ROOT / "step8_select_genai_strategy"
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Compare GenAI benchmark labels, select a strategy, and optionally label train/test."
+        description="Compare GenAI benchmark labels, select a strategy, and optionally label train_test_15000."
     )
     parser.add_argument(
         "--human-consensus",
@@ -151,24 +151,12 @@ def parse_args():
     parser.add_argument(
         "--label-train-test",
         action="store_true",
-        help="Also label Step 5 train/test files with the selected model. This uses paid APIs.",
+        help="Also label Step 5 train_test_15000.csv with the selected model. This uses paid APIs.",
     )
     parser.add_argument(
         "--model",
         choices=sorted(MODEL_CONFIGS),
-        help="Override automatic model selection for train/test labeling.",
-    )
-    parser.add_argument(
-        "--train-file",
-        default=PROJECT_ROOT / "step5_preprocess_split" / "data" / "train.csv",
-        type=Path,
-        help="Path to Step 5 train.csv.",
-    )
-    parser.add_argument(
-        "--test-file",
-        default=PROJECT_ROOT / "step5_preprocess_split" / "data" / "test.csv",
-        type=Path,
-        help="Path to Step 5 test.csv.",
+        help="Override automatic model selection for train_test_15000.csv labeling.",
     )
     parser.add_argument(
         "--train-test-file",
@@ -176,12 +164,41 @@ def parse_args():
         type=Path,
         help="Path to Step 5 train_test_15000.csv.",
     )
+    parser.add_argument(
+        "--env-file",
+        default=None,
+        type=Path,
+        help="Optional path to a .env file containing provider API keys.",
+    )
     return parser.parse_args()
 
 
 def require_file(path, description):
     if not path.exists():
         raise FileNotFoundError(f"{description} not found: {path}")
+
+
+def load_environment(args):
+    """Load API keys from common local .env locations without printing secret values."""
+    env_candidates = [
+        args.env_file,
+        Path.cwd() / ".env",
+        PROJECT_ROOT / ".env",
+        DEFAULT_STEP8_DIR / ".env",
+    ]
+    loaded_paths = []
+
+    for env_path in env_candidates:
+        if env_path and env_path.exists():
+            load_dotenv(env_path, override=True)
+            loaded_paths.append(env_path)
+
+    if loaded_paths:
+        print("Loaded environment from:")
+        for env_path in loaded_paths:
+            print(f"- {env_path}")
+    else:
+        print("No .env file found; using existing shell environment variables.")
 
 
 def normalize_human_label(label):
@@ -235,7 +252,7 @@ def save_confusion_matrix(output_dir, model_name, y_true, y_pred):
     plt.tight_layout()
 
     safe_model = model_name.replace(".", "_").replace("/", "_")
-    output_path = output_dir / f"confusion_matrix_{safe_model}.png"
+    output_path = output_dir /"confusion-matrices"/ f"confusion_matrix_{safe_model}.png"
     plt.savefig(output_path, dpi=200)
     plt.close()
     return output_path
@@ -585,43 +602,25 @@ async def label_dataset(input_file, labels_file, output_file, config):
 
 
 async def label_train_test(args, selected_model):
-    for path, description in [
-        (args.train_file, "Train file"),
-        (args.test_file, "Test file"),
-        (args.train_test_file, "Train/test file"),
-    ]:
-        require_file(path, description)
+    require_file(args.train_test_file, "Train/test file")
 
     config = MODEL_CONFIGS[selected_model]
     safe_model = selected_model.replace(".", "_").replace("/", "_")
-    jobs = [
-        (
-            args.train_file,
-            args.output_dir / f"train_labeled_{safe_model}_labels.csv",
-            args.output_dir / f"train_labeled_{safe_model}.csv",
-        ),
-        (
-            args.test_file,
-            args.output_dir / f"test_labeled_{safe_model}_labels.csv",
-            args.output_dir / f"test_labeled_{safe_model}.csv",
-        ),
-        (
-            args.train_test_file,
-            args.output_dir / f"train_test_labeled_{safe_model}_labels.csv",
-            args.output_dir / f"train_test_labeled_{safe_model}.csv",
-        ),
-    ]
+    output_file = args.output_dir / f"train_test_labeled_{safe_model}.csv"
 
-    for input_file, labels_file, output_file in jobs:
-        await label_dataset(input_file, labels_file, output_file, config)
-        print(f"Saved labeled dataset to: {output_file}")
+    await label_dataset(
+        args.train_test_file,
+        args.output_dir / f"train_test_labeled_{safe_model}_labels.csv",
+        output_file,
+        config,
+    )
+    print(f"Saved labeled dataset to: {output_file}")
 
 
 def main():
     args = parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    load_dotenv(DEFAULT_STEP8_DIR / ".env")
-    load_dotenv(PROJECT_ROOT / ".env")
+    load_environment(args)
     logging.basicConfig(
         filename=DEFAULT_STEP8_DIR / "step8_label_train_test.log",
         level=logging.WARNING,
@@ -634,7 +633,7 @@ def main():
     if args.label_train_test:
         asyncio.run(label_train_test(args, selected_model))
     else:
-        print("Train/test labeling skipped. Pass --label-train-test to run paid API labeling.")
+        print("Train/test labeling skipped. Pass --label-train-test to label train_test_15000.csv.")
 
 
 if __name__ == "__main__":

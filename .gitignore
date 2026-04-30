@@ -1,4 +1,5 @@
 /venv/
+.env
 .DS_Store
 
 ## Step 4: Dataset Collection
@@ -20,7 +21,6 @@
 /step7_genai_benchmark/scripts/__pycache__/
 /step7_genai_benchmark/data/
 /step7_genai_benchmark/notebook/data/
-/step7_genai_benchmark/scripts/.env
 /step7_genai_benchmark/benchmark_labels.log
 
 ## Step 8: Select GenAI Strategy
